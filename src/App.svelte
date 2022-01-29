@@ -1,30 +1,41 @@
 <script>
-	export let name;
+  import ContactCard from './ContactCard.svelte';
+
+  let name = 'Max';
+  let title = '';
+  let imageUrl = '';
+  let description = '';
+  let age = 30;
+
+  $: upperCaseName = name.toUpperCase();
+
+  function incrementAge() {
+    age += 1;
+  }
+
+  function changeName() {
+    name = 'Maximiliam';
+  }
+
+  function nameInput(event) {
+    const enteredValue = event.target.value;
+    name = enteredValue;
+  }
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
+<h1>Hello {upperCaseName}, my age is {age}!</h1>
+<button on:click={incrementAge}>Change Age</button>
+<button on:click={changeName}>Change Name</button>
+<!-- <input type="text" value="{name}" on:input="{nameInput}"> -->
+<input type="text" bind:value={name} />
+<input type="text" bind:value={title} />
+<input type="text" bind:value={imageUrl} />
+<input type="text" bind:value={description} />
+
+<ContactCard userName={name} jobTitle={title} {description} userImg={imageUrl} />
 
 <style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
-	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
+  h1 {
+    color: purple;
+  }
 </style>
